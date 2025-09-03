@@ -1,0 +1,8 @@
+[package]
+name = "code-optimizer-core"
+version = "0.1.0"
+edition = "2021"
+description = "Core optimization engine"
+
+[dependencies]
+# Temporarily removed serde until we fix Windows tools

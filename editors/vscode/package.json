@@ -1,0 +1,124 @@
+{
+  "name": "code-optimizer",
+  "displayName": "EZFIZ",
+  "description": "Smart code optimization suggestions powered by Rust",
+  "version": "0.1.0",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Linters",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "optimization",
+    "code-quality",
+    "javascript",
+    "python",
+    "rust"
+  ],
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:python",
+    "onLanguage:rust",
+    "onLanguage:typescript"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codeOptimizer.analyzeFile",
+        "title": "Analyze Current File",
+        "category": "Code Optimizer"
+      },
+      {
+        "command": "codeOptimizer.analyzeWorkspace",
+        "title": "Analyze Workspace",
+        "category": "Code Optimizer"
+      },
+      {
+        "command": "codeOptimizer.showConfig",
+        "title": "Show Configuration",
+        "category": "Code Optimizer"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "codeOptimizer.analyzeFile",
+          "group": "optimization",
+          "when": "resourceExtname =~ /\\.(js|ts|py|rs)$/"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "codeOptimizer.analyzeFile"
+        },
+        {
+          "command": "codeOptimizer.analyzeWorkspace"
+        },
+        {
+          "command": "codeOptimizer.showConfig"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Code Optimizer",
+      "properties": {
+        "codeOptimizer.enabledRules": {
+          "type": "object",
+          "default": {
+            "use-const": true,
+            "arrow-function": true,
+            "list-comprehension": true,
+            "pathlib-usage": true,
+            "clippy-style": true
+          },
+          "description": "Enable or disable specific optimization rules"
+        },
+        "codeOptimizer.minimumConfidence": {
+          "type": "number",
+          "default": 0.6,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Minimum confidence level for showing suggestions (0.0 to 1.0)"
+        },
+        "codeOptimizer.showSeverity": {
+          "type": "array",
+          "default": [
+            "Info",
+            "Warning",
+            "Error"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "Info",
+              "Warning",
+              "Error"
+            ]
+          },
+          "description": "Which severity levels to show"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.123",
+    "@types/vscode": "^1.103.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
