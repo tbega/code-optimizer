@@ -164,7 +164,18 @@ impl CodeOptimizer {
             confidence: 0.6,
             enabled: true,
         });
-        
+
+        self.rules.push(OptimizationRule {
+            name: "use-strict-equality".to_string(),
+            language: Language::JavaScript,
+            pattern_type: PatternType::Contains(" == ".to_string()),
+            replacement: " === ".to_string(),
+            explanation: "Use strict equality '===' to avoid type coercion bugs".to_string(),
+            severity: Severity::Warning,
+            confidence: 0.9,
+            enabled: true,
+        });
+
         // Python rules with advanced patterns
         self.rules.push(OptimizationRule {
             name: "list-comprehension".to_string(),
